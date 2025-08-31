@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# 🚀  Open State Stack  -  Next.js Starter Template
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**A modern, production-ready boilerplate built with Next.js, TypeScript, and OSS Design System**
 
-## Available Scripts
+This starter provides a scalable foundation to kickstart your next web application. With clean architecture, modular folder structure.
 
-In the project directory, you can run:
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Category             | Tech                                                                          |
+| -------------------- | ----------------------------------------------------------------------------- |
+| **Framework**        | [Next.js v15.3.0](https://nextjs.org/)                                        |
+| **Language**         | TypeScript                                                                    |
+| **Styling**          | Tailwind CSS + Open State Stack DS                                            |
+| **State Management** | [Zustand](https://zustand-demo.pmnd.rs/) – Minimal, scalable state management |
+| **Tooling**          | ESLint, Prettier, TypeScript, Docker                                          |
+| **i18n**             | TypeScript-ready internationalization with locale detection                   |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> 🐳 **Built-in Docker Support** – Containerize your app with included `Dockerfile` and `docker-compose.yml` for reliable development and deployment (Optional).
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📋 Prerequisites
 
-### `npm run build`
+* Node.js `>= 18.18`
+* npm or yarn
+* Docker (optional – for containerized environments)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+NEXT-TS-FRONTEND-STARTER/
+├── src/
+│   ├── app/              → Next.js App Router (pages, layouts, routing)
+│   ├── modules/          → API-based modules (e.g., auth, dashboard)
+│   ├── assets/           → Static assets (images, icons, fonts)
+│   ├── hooks/            → Custom React hooks
+│   ├── components/       → Shared reusable components and page based components.
+│   ├── context/          → React context providers
+│   ├── lib/              → Utilities and helpers
+│   ├── store/            → Zustand state management logic
+│   ├── config/           → Global app configuration
+│   ├── types/            → Global TypeScript types and interfaces
+│   └── styles/           → Tailwind CSS config and global styles
+├── public/               → Public static files (e.g., favicon, robots.txt)
+├── .env.local            → Environment variables
+├── next.config.js        → Next.js configuration
+├── tsconfig.json         → TypeScript configuration
+├── Dockerfile            → Docker setup
+├── docker-compose.yml    → Docker Compose configuration
+├── .dockerignore         → Files to exclude from Docker context
+├── .gitignore            → Git ignored files
+└── README.md             → Project documentation
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🎯 Key Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Modular Architecture** – Easy to scale and maintain
+- **Type-safe** – Full TypeScript support
+- **Pre-configured Tooling** – ESLint + Prettier for consistent code style
+- **Fully Responsive** – Works across mobile, tablet, and desktop
+- **Zustand-powered State** – Lightweight and scalable state management
+- **i18n-Ready** – TypeScript-compatible internationalization.
+- **Production-Grade Base** – Designed for scalable real-world deployments.
+- **Axios Interceptor** - Pre-configured to handle auth, public, and private API calls
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🧪 Getting Started - Local Development
 
-## Learn More
+### 1. Clone the Repository
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+git clone https://github.com/Open-State-Stack/next-ts-frontend-starter
+cd next-ts-frontend-starter
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 2. Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env.local` file at the root of your project:
+
+```env
+NEXT_PUBLIC_BACKEND_BASE_URL=http://localhost:3000
+```
+
+### 4. Run Development Server
+
+```bash
+npm run dev
+```
+
+🌐 Visit your app at: `http://localhost:3000`
+
+## 📄 License
+
+This project is licensed under the MIT License.
