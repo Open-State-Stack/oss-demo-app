@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'OSS Demo App - OAuth Integration',
-  description: 'Digital Pass SSO Integration Demo',
+  title: 'Partner Demo - Uganda Pass SSO',
+  description: 'Uganda Pass OAuth2 Integration Demo',
 }
 
 export default function RootLayout({

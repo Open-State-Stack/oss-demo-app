@@ -30,7 +30,7 @@ export default function DashboardPage() {
     
     if (!accessToken) {
       alert('No access token found. Redirecting to login...')
-      router.push('/')
+      router.push('/en')
       return
     }
 
@@ -106,7 +106,7 @@ export default function DashboardPage() {
 
   if (!tokenInfo) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -120,7 +120,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600">
       <header className="bg-white border-b shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
@@ -146,7 +146,7 @@ export default function DashboardPage() {
               <div>
                 <CardTitle className="text-green-800">Welcome to Your Dashboard!</CardTitle>
                 <CardDescription className="text-green-700">
-                  You have successfully authenticated using Digital Pass SSO
+                  You have successfully authenticated using Uganda Pass SSO
                 </CardDescription>
               </div>
             </div>
