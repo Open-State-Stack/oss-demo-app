@@ -84,7 +84,13 @@ export default function CallbackPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ 
+          grant_type: 'authorization_code',
+          code: code,
+          client_id: CONFIG.CLIENT_ID,
+          client_secret: CONFIG.CLIENT_SECRET,
+          redirect_uri: CONFIG.CALLBACK_URL
+         })
       })
 
       const responseData = await response.json()
@@ -140,7 +146,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -158,7 +164,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">

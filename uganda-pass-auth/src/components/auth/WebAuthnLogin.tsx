@@ -37,11 +37,11 @@ export default function WebAuthnLogin({ context, onBack }: Props) {
         <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-2xl">🔐</span>
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Uganda Pass</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">UG Pass</h2>
         <p className="text-gray-600">Secure Authentication with Passkey</p>
         {context.type === 'oauth2' && (
           <p className="text-sm text-blue-600 mt-2">
-            Logging in to: <strong>{context.clientId}</strong>
+           Logging in to: <strong>Ministry of Internal Affairs</strong>
           </p>
         )}
       </div>

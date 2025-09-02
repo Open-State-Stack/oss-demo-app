@@ -121,14 +121,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl font-bold text-primary-foreground">P</span>
           </div>
           <h1 className="text-3xl font-bold text-white">Partner Demo Portal</h1>
-          <p className="text-gray-200">Experience Uganda Pass SSO Integration</p>
+          <p className="text-gray-200">Experience UG Pass SSO Integration</p>
         </div>
 
         <Card>
@@ -138,13 +138,15 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent className="space-y-4">
 
-          <Button
+
+        <Button
             type="button"
+            variant="secondary"
             onClick={loginWithDigitalPass}
-            className="w-full h-12 bg-black hover:bg-gray-800 text-white font-medium rounded-md flex items-center justify-center space-x-2"
+            className="w-full h-10 bg-gray-100 dark:bg-gray-700 !cursor-pointer text-gray-950 dark:text-gray-200 rounded-full font-normal"
           >
-             <UGAuthLogo className='h-6 w-6' />
-             <span>Login with Uganda Pass</span>
+             <UGAuthLogo className='!h-6 !w-6' />
+            Login with UG-Pass
           </Button>
 
             {status && (
@@ -157,32 +159,6 @@ export default function LoginPage() {
                 <span className="text-sm">{status.message}</span>
               </div>
             )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Configuration</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Client ID:</span>
-              <Badge variant="outline" className="font-mono text-xs">
-                {CONFIG.CLIENT_ID}
-              </Badge>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Auth Server:</span>
-              <Badge variant="outline" className="font-mono text-xs">
-                {(CONFIG.AUTH_SERVER_URL ?? '').replace('https://', '')}
-              </Badge>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">Callback URL:</span>
-              <Badge variant="outline" className="font-mono text-xs">
-                {(CONFIG.CALLBACK_URL ?? '').replace('http://localhost:8080', 'localhost:8080')}
-              </Badge>
-            </div>
           </CardContent>
         </Card>
       </div>

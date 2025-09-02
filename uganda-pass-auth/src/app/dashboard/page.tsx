@@ -48,14 +48,11 @@ export default function DashboardPage() {
               <span className="text-4xl">🇺🇬</span>
             </div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              Welcome to Uganda Pass
+              Welcome to UG PASS
             </h1>
             <p className="text-gray-600">
               You have successfully authenticated with your digital identity.
             </p>
-            <div className="bg-yellow-50 text-yellow-800 text-sm px-4 py-2 rounded-full inline-block mt-3">
-              Government of Uganda Digital Identity Service
-            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -65,7 +62,7 @@ export default function DashboardPage() {
 
           <div className="bg-gray-50 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">
-              What can you do with Uganda Pass?
+              What can you do with UG PASS?
             </h3>
             <ul className="space-y-2 text-gray-600">
               <li className="flex items-center">
