@@ -64,7 +64,6 @@ export default function LoginPage() {
     authUrl.searchParams.append('state', state)
     authUrl.searchParams.append('response_type', 'code')
     authUrl.searchParams.append('channel', 'web')
-    authUrl.searchParams.append('auth_method', 'digital_pass')
     
     setTimeout(() => {
       window.location.href = authUrl.toString()
@@ -101,7 +100,7 @@ export default function LoginPage() {
       setStatus({ message: 'Tokens received successfully! Redirecting to dashboard...', type: 'success' })
       
       setTimeout(() => {
-        router.push('/dashboard')
+        router.push('/en/dashboard')
       }, 2000)
 
     } catch (error: any) {
@@ -122,14 +121,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl font-bold text-primary-foreground">P</span>
           </div>
           <h1 className="text-3xl font-bold text-white">Partner Demo Portal</h1>
-          <p className="text-gray-200">Experience Digital Pass SSO Integration</p>
+          <p className="text-gray-200">Experience Uganda Pass SSO Integration</p>
         </div>
 
         <Card>
@@ -141,12 +140,11 @@ export default function LoginPage() {
 
           <Button
             type="button"
-            variant="secondary"
             onClick={loginWithDigitalPass}
-            className="w-full h-10 bg-gray-100 dark:bg-gray-700 !cursor-pointer text-gray-950 dark:text-gray-200 rounded-full font-normal"
+            className="w-full h-12 bg-black hover:bg-gray-800 text-white font-medium rounded-md flex items-center justify-center space-x-2"
           >
-             <UGAuthLogo className='!h-6 !w-6' />
-            Login with UG-Pass
+             <UGAuthLogo className='h-6 w-6' />
+             <span>Login with Uganda Pass</span>
           </Button>
 
             {status && (

@@ -79,20 +79,12 @@ export default function CallbackPage() {
 
   const exchangeCodeForTokens = async (code: string) => {
     try {
-      const tokenRequest = {
-        grant_type: 'authorization_code',
-        code: code,
-        client_id: CONFIG.CLIENT_ID,
-        client_secret: CONFIG.CLIENT_SECRET,
-        redirect_uri: window.location.origin + '/callback'
-      }
-
-      const response = await fetch(`${CONFIG.AUTH_SERVER_URL}/auth/token`, {
+      const response = await fetch('/api/auth/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(tokenRequest)
+        body: JSON.stringify({ code })
       })
 
       const responseData = await response.json()
@@ -136,7 +128,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
     setSuccessDetails(details)
 
     setTimeout(() => {
-      router.push('/dashboard')
+      router.push('/en/dashboard')
     }, 3000)
   }
 
@@ -148,7 +140,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -166,7 +158,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -189,7 +181,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -218,7 +210,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
             </div>
 
             <div className="flex space-x-2">
-              <Button onClick={() => router.push('/')} className="flex-1">
+              <Button onClick={() => router.push('/en')} className="flex-1">
                 Try Again
               </Button>
               <Button onClick={showDebugInfo} variant="outline" size="icon">
