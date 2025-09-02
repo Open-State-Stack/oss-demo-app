@@ -188,7 +188,7 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
           <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl">📱</span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Uganda Pass</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">UG Pass</h2>
           <p className="text-gray-600">Mobile Verification</p>
         </div>
 
@@ -234,11 +234,11 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
         <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-2xl">📱</span>
         </div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Uganda Pass</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">UG Pass</h2>
         <p className="text-gray-600">Digital Identity Authentication</p>
         {context.type === 'oauth2' && (
           <p className="text-sm text-blue-600 mt-2">
-            Logging in to: <strong>{context.clientId}</strong>
+            Logging in to: <strong>Ministry of Internal Affairs</strong>
           </p>
         )}
       </div>
@@ -285,7 +285,7 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
         <button
           type="submit"
           disabled={loading || !identifier}
-          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center space-x-2"
+          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white font-medium py-3 px-4 rounded-full transition-colors flex items-center justify-center space-x-2"
         >
           {loading ? (
             <>
@@ -295,7 +295,7 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
           ) : (
             <>
               <span>📱</span>
-              <span>Continue with Uganda Pass</span>
+              <span>Continue with UG Pass</span>
             </>
           )}
         </button>
