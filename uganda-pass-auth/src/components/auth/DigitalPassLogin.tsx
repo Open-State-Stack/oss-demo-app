@@ -16,7 +16,7 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
   const [identifier, setIdentifier] = useState('');
   const [identifierType, setIdentifierType] = useState<'phoneNumber' | 'nationalId'>('phoneNumber');
   const [challengeNumber, setChallengeNumber] = useState<number | null>(null);
-  const [, setSessionId] = useState('');
+  const [accessToken, setAccessToken] = useState('');
   const [status, setStatus] = useState<'form' | 'challenge' | 'success' | 'error'>('form');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -65,11 +65,11 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
       }
 
       setChallengeNumber(result.challenge_number);
-      setSessionId(result.session_id);
+      setAccessToken(result.access_token);
       setStatus('challenge');
       
-      // Start real-time status monitoring
-      startSSEMonitoring(result.session_id, context.type === 'oauth2');
+      // Start real-time status monitoring using access token
+      startSSEMonitoring(result.access_token, context.type === 'oauth2');
 
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } }; message?: string };
@@ -90,9 +90,9 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
     }
   };
 
-  const startSSEMonitoring = (sessionId: string, isSSO: boolean) => {
+  const startSSEMonitoring = (accessToken: string, isSSO: boolean) => {
     try {
-      const eventSource = digitalPassAuth.setupSSEStream(sessionId, isSSO);
+      const eventSource = digitalPassAuth.setupSSEStream(accessToken, isSSO);
       eventSourceRef.current = eventSource;
       
       eventSource.onmessage = (event) => {
@@ -136,19 +136,19 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
       eventSource.onerror = () => {
         eventSource.close();
         // Fallback to polling
-        startPolling(sessionId, isSSO);
+        startPolling(accessToken, isSSO);
       };
 
     } catch (error) {
       console.error('Failed to setup SSE:', error);
-      startPolling(sessionId, isSSO);
+      startPolling(accessToken, isSSO);
     }
   };
 
-  const startPolling = (sessionId: string, isSSO: boolean) => {
+  const startPolling = (accessToken: string, isSSO: boolean) => {
     pollingIntervalRef.current = setInterval(async () => {
       try {
-        const status = await digitalPassAuth.getSessionStatus(sessionId);
+        const status = await digitalPassAuth.getSessionStatus(accessToken);
         setAttemptsRemaining(status.attemptsRemaining);
         
         if (status.status === 'verified') {

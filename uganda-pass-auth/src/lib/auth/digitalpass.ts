@@ -26,22 +26,28 @@ export const digitalPassAuth = {
     return response.data;
   },
 
-  setupSSEStream(sessionId: string, isSSO: boolean = false): EventSource {
+  setupSSEStream(accessToken: string, isSSO: boolean = false): EventSource {
     const endpoint = isSSO 
-      ? `/auth/digital-pass/session/${sessionId}/sso-stream`
-      : `/auth/digital-pass/session/${sessionId}/stream`;
+      ? `/auth/digital-pass/session/sso-stream`
+      : `/auth/digital-pass/session/stream`;
       
-    const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_API_BASE_URL}${endpoint}`);
+    // Include access token as query parameter for SSE authentication
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}${endpoint}?access_token=${accessToken}`;
+    const eventSource = new EventSource(url);
     
     return eventSource;
   },
 
-  async getSessionStatus(sessionId: string): Promise<{
+  async getSessionStatus(accessToken: string): Promise<{
     status: string;
     attemptsRemaining: number;
     expiresAt: string;
   }> {
-    const response = await api.get(`/auth/digital-pass/session/${sessionId}/status`);
+    const response = await api.get('/auth/digital-pass/session/status', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
     return response.data;
   }
 };

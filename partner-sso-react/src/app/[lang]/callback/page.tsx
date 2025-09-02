@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, XCircle, Loader2, Bug } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
+import { retrievePKCEVerifier, clearPKCEVerifier } from '@/lib/pkce'
 
 interface DebugInfo {
   url?: string
@@ -79,18 +80,35 @@ export default function CallbackPage() {
 
   const exchangeCodeForTokens = async (code: string) => {
     try {
+      // Prepare token request body
+      const tokenRequest: any = {
+        grant_type: 'authorization_code',
+        code: code,
+        client_id: CONFIG.CLIENT_ID,
+        redirect_uri: CONFIG.CALLBACK_URL
+      }
+      
+      // Add PKCE verifier if PKCE is enabled
+      if (CONFIG.USE_PKCE) {
+        const codeVerifier = retrievePKCEVerifier()
+        if (!codeVerifier) {
+          throw new Error('PKCE code verifier not found. Authentication flow may be compromised.')
+        }
+        tokenRequest.code_verifier = codeVerifier
+        
+        // Clear the verifier after use (single-use security)
+        clearPKCEVerifier()
+      } else {
+        // For confidential clients, include client secret
+        tokenRequest.client_secret = CONFIG.CLIENT_SECRET
+      }
+      
       const response = await fetch('/api/auth/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          grant_type: 'authorization_code',
-          code: code,
-          client_id: CONFIG.CLIENT_ID,
-          client_secret: CONFIG.CLIENT_SECRET,
-          redirect_uri: CONFIG.CALLBACK_URL
-         })
+        body: JSON.stringify(tokenRequest)
       })
 
       const responseData = await response.json()
