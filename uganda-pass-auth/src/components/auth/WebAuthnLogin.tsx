@@ -32,6 +32,7 @@ export default function WebAuthnLogin({ context, onBack }: Props) {
   };
 
   return (
+    <main className='min-w-md'>
     <div className="bg-white rounded-lg shadow-lg p-6">
       <div className="text-center mb-6">
         <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -100,5 +101,6 @@ export default function WebAuthnLogin({ context, onBack }: Props) {
         </div>
       )}
     </div>
+    </main>
   );
 }

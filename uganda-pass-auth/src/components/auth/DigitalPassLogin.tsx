@@ -336,7 +336,7 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
 
   if (status === 'success') {
     return (
-      <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+      <div className="bg-white rounded-lg shadow-lg p-6 text-center min-w-md">
         <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <span className="text-2xl">✅</span>
         </div>
@@ -351,7 +351,6 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
     <>
      <div className="w-full max-w-md mx-auto">
       <div className="h-2 bg-gradient-to-r from-black via-yellow-400 to-red-600 rounded-t-lg"></div>
-
       <Card className="shadow-lg rounded-t-none">
         <CardContent className="px-8">
           <div className="text-center mb-8">
