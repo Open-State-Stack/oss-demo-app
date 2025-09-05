@@ -170,7 +170,6 @@ export default function LoginPage() {
             <span className="text-2xl font-bold text-primary-foreground">P</span>
           </div>
           <h1 className="text-3xl font-bold text-white">Partner Demo Portal</h1>
-          <p className="text-gray-200">Experience UG Pass SSO Integration</p>
         </div>
 
         <Card>
@@ -188,7 +187,7 @@ export default function LoginPage() {
             className="w-full h-10 bg-gray-100 dark:bg-gray-700 !cursor-pointer text-gray-950 dark:text-gray-200 rounded-full font-normal"
           >
              <UGAuthLogo className='!h-6 !w-6' />
-            Login with UG-Pass
+            Login with Digital Pass
           </Button>
 
             {status && (

@@ -58,7 +58,7 @@ NEXT-TS-FRONTEND-STARTER/
 ## 🎯 Key Features
 
 - **OAuth2 + PKCE Implementation** – RFC 7636 compliant PKCE for public clients
-- **UG Pass Integration** – Direct integration with Uganda Pass identity provider
+- **Pass Integration** – Direct integration with Uganda Pass identity provider
 - **Security Best Practices** – State validation, CSRF protection, secure token storage
 - **Type-safe** – Full TypeScript support for OAuth2 flows
 - **Automatic Client Detection** – Supports both public and confidential clients

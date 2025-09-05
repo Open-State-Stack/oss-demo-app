@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Uganda Pass Authentication",
-  description: "Secure Digital Identity Authentication for Uganda",
+  title: " Pass Authentication",
+  description: "Secure Digital Identity Authentication for ",
 };
 
 export default function RootLayout({
