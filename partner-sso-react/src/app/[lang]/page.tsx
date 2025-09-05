@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Smartphone, CheckCircle, XCircle, Info } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
 import { UGAuthLogo } from '@/assets/icons'
+import { generatePKCEChallenge, storePKCEVerifier, retrievePKCEVerifier, clearPKCEVerifier } from '@/lib/pkce'
 
 interface StatusMessage {
   message: string
@@ -45,25 +46,49 @@ export default function LoginPage() {
     return btoa(Math.random().toString(36).substring(2, 11))
   }
 
-  const loginWithDigitalPass = () => {
+  const loginWithDigitalPass = async () => {
     const state = generateState()
     
     sessionStorage.setItem('oauth_state', state)
     sessionStorage.setItem('auth_method', 'digital_pass')
     
-    setStatus({ message: 'Redirecting to Digital Pass authentication...', type: 'info' })
+    setStatus({ message: 'Preparing secure authentication...', type: 'info' })
     
     const authUrl = new URL(`${CONFIG.AUTH_SERVER_URL}/auth/authorize`)
     if (!CONFIG.CLIENT_ID || !CONFIG.CALLBACK_URL || !CONFIG.SCOPES) {
       setStatus({ message: 'Missing OAuth configuration. Please check environment variables.', type: 'error' })
       return
     }
+    
+    // Add standard OAuth2 parameters
     authUrl.searchParams.append('client_id', CONFIG.CLIENT_ID ?? '')
     authUrl.searchParams.append('redirect_uri', CONFIG.CALLBACK_URL ?? '')
     authUrl.searchParams.append('scope', CONFIG.SCOPES ?? '')
     authUrl.searchParams.append('state', state)
     authUrl.searchParams.append('response_type', 'code')
     authUrl.searchParams.append('channel', 'web')
+    
+    // Add PKCE parameters if enabled
+    if (CONFIG.USE_PKCE) {
+      try {
+        const pkceParams = await generatePKCEChallenge()
+        
+        // Store code verifier securely for token exchange
+        storePKCEVerifier(pkceParams.codeVerifier)
+        
+        // Add PKCE parameters to authorization request
+        authUrl.searchParams.append('code_challenge', pkceParams.codeChallenge)
+        authUrl.searchParams.append('code_challenge_method', pkceParams.codeChallengeMethod)
+        
+        setStatus({ message: 'Redirecting to Digital Pass authentication (PKCE-secured)...', type: 'info' })
+      } catch (error) {
+        console.error('PKCE generation failed:', error)
+        setStatus({ message: 'Failed to generate PKCE parameters. Please try again.', type: 'error' })
+        return
+      }
+    } else {
+      setStatus({ message: 'Redirecting to Digital Pass authentication...', type: 'info' })
+    }
     
     setTimeout(() => {
       window.location.href = authUrl.toString()
@@ -72,18 +97,35 @@ export default function LoginPage() {
 
   const exchangeCodeForTokens = async (code: string) => {
     try {
+      // Prepare token request body
+      const tokenRequest: any = {
+        grant_type: 'authorization_code',
+        code: code,
+        client_id: CONFIG.CLIENT_ID,
+        redirect_uri: CONFIG.CALLBACK_URL
+      }
+      
+      // Add PKCE verifier if PKCE is enabled
+      if (CONFIG.USE_PKCE) {
+        const codeVerifier = retrievePKCEVerifier()
+        if (!codeVerifier) {
+          throw new Error('PKCE code verifier not found. Authentication flow may be compromised.')
+        }
+        tokenRequest.code_verifier = codeVerifier
+        
+        // Clear the verifier after use (single-use security)
+        clearPKCEVerifier()
+      } else {
+        // For confidential clients, include client secret
+        tokenRequest.client_secret = CONFIG.CLIENT_SECRET
+      }
+      
       const response = await fetch(`${CONFIG.AUTH_SERVER_URL}/auth/token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          grant_type: 'authorization_code',
-          code: code,
-          client_id: CONFIG.CLIENT_ID,
-          client_secret: CONFIG.CLIENT_SECRET,
-          redirect_uri: CONFIG.CALLBACK_URL
-        })
+        body: JSON.stringify(tokenRequest)
       })
 
       if (!response.ok) {
@@ -128,7 +170,6 @@ export default function LoginPage() {
             <span className="text-2xl font-bold text-primary-foreground">P</span>
           </div>
           <h1 className="text-3xl font-bold text-white">Partner Demo Portal</h1>
-          <p className="text-gray-200">Experience UG Pass SSO Integration</p>
         </div>
 
         <Card>
@@ -146,7 +187,7 @@ export default function LoginPage() {
             className="w-full h-10 bg-gray-100 dark:bg-gray-700 !cursor-pointer text-gray-950 dark:text-gray-200 rounded-full font-normal"
           >
              <UGAuthLogo className='!h-6 !w-6' />
-            Login with UG-Pass
+            Login with Digital Pass
           </Button>
 
             {status && (

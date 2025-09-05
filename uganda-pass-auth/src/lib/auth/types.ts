@@ -28,10 +28,11 @@ export interface DirectContext {
 export type LoginContext = OAuth2Context | DirectContext;
 
 export interface DigitalPassInitiateResponse {
-  session_id: string;
+  access_token: string;
   challenge_number: number;
   expires_in: number;
   challenge_id: string;
+  session_id: string; // Still included for backward compatibility
 }
 
 export interface DigitalPassSession {

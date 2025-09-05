@@ -131,7 +131,7 @@ export default function DashboardPage() {
               <div>
                 <CardTitle className="text-green-800">Welcome to Your Dashboard!</CardTitle>
                 <CardDescription className="text-green-700">
-                  You have successfully authenticated using UG PASS SSO
+                  You have successfully authenticated using PASS SSO
                 </CardDescription>
               </div>
             </div>
