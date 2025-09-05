@@ -102,6 +102,7 @@ export default function DigitalPassLogin({ context, onBack }: Props) {
       setAccessToken(result.access_token);
       setStatus('challenge');
 
+
       startSSEMonitoring(result.access_token, context.type === 'oauth2');
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } }; message?: string };
