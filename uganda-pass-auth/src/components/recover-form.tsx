@@ -97,7 +97,7 @@ export function RecoverForm() {
 
             <div className="flex justify-center mt-8">
               <div className="bg-gray-100 px-4 py-2 rounded-lg border-2 border-dashed border-gray-300">
-                <span className="text-sm text-gray-500 font-mono">pages.recovery</span>
+                <span className="text-sm text-gray-500 font-mono">pass.recovery</span>
               </div>
             </div>
           </div>
